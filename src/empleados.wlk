@@ -8,47 +8,82 @@ object galvan {
 	var property deuda = 0
 	var property dinero = 0
 
-	
-//	method cobrarSueldo(cuanto){
-//		sueldo-=cuanto
-//		dinero+=cuanto
-//	}
-	method cobrarSUeldo(){
-		
-	}
-
-	
-//	method sueldo() { //setter - accessor
+//	method cobrarSueldo(){
+//		dinero=sueldo
+//		if (deuda>0){
+//			dinero=dinero-deuda
+//			
+//		}
+//		
+//	} 	
+//	method sueldo() { //setter - accessor // no hace falta que use este metodo dado que uso el property
 //		return sueldo
 //	}
 //
-//	method sueldo(nuevoValor) { //getter - accessor
+//	method sueldo(nuevoValor) { //getter - accessor / no hace falta que use este metodo dado que uso el property
 //		sueldo = nuevoValor
 //	}
-	
-	method totalCobrado(){
-		return dinero
+//	method gastar(cuanto){
+//		//
+//		
+//		if (deuda>0){
+//			deuda=deuda-cuanto
+//		}else{//(deuda<0)
+//			dinero = dinero-cuanto
+//		}
+//
+//	}
+
+	method gastar(cuanto) {
+		// le alcanza la plata para todo el gasto
+		if (dinero >= cuanto) {
+			dinero -= cuanto
+		} else {
+			// le alcanza la plata para una parte
+			if (dinero > 0) {
+				deuda += cuanto - dinero
+				dinero = 0
+			} else {
+				// no tiene plata, pura deuda
+				deuda += cuanto
+			}
+		}
 	}
-	
-	method gastar(cuanto){
-		dinero-=cuanto
+
+	method cobrarSueldo() {
+		var cuantoDescuento = deuda.min(sueldo)
+		deuda -= cuantoDescuento 
+		dinero += sueldo - cuantoDescuento
+		
+//		// cobra y paga la deuda y no le sobra - tiene deuda usa todo el sueldo
+//		// cobra y paga la deuda y le falta - tiene deuda y no le alcanza el sueldo
+//		if (deuda >= sueldo) {
+//			deuda -= sueldo
+//		} else {
+//			// cobra y paga la deuda y le sobra - tiene deuda y le sobra el sueldo
+//			// cobra y no debe nada - no tiene deuda
+//			dinero += sueldo - deuda
+//			deuda = 0
+//		}
 	}
-	
-	method totalDeuda(){
+
+	method totalDeuda() {
 		return deuda
 	}
-	
-	method totalDinero(){
-		return dinero	
+
+	method totalDinero() {
+		return dinero
 	}
-	
 
 }
+
+
+
 //BAIGORRIA
 object baigorria {
 
 	var property sueldo = 0
-	var property totalDineroCobrado = 0
+	var property totalCobrado = 0
 	var property cantidadEmpanadasVendidas = 100
 	var montoPorEmpanada = 15 // es una constante porque no varia eset precio
 
@@ -57,11 +92,11 @@ object baigorria {
 	}
 
 	method cobrarSueldo(){
-		totalDineroCobrado +=self.sueldo() 
+		totalCobrado +=self.sueldo() 
 	}
 
-	method totalDineroCobrado() {
-		return totalDineroCobrado
+	method totalCobrado() {
+		return totalCobrado
 	}
 
 	method sueldo() = cantidadEmpanadasVendidas * montoPorEmpanada // con este metodo se puede cobrar , la sintaxis esta abreviada
@@ -86,3 +121,4 @@ object gimenez {
 	}
 
 }
+
